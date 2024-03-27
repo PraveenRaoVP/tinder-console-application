@@ -1,5 +1,6 @@
 package com.tinder_application.auth.login;
 
+import com.tinder_application.MainMenu.MainMenuView;
 import com.tinder_application.auth.authmenu.AuthMenu;
 import com.tinder_application.repository.CacheMemory;
 import com.tinder_application.repository.UserRepository;
@@ -25,7 +26,8 @@ public class LoginView {
         String password = sc.nextLine();
         if (loginModel.authenticateUser(email, password)) {
             System.out.println("Login successful");
-            System.out.println("Welcome, " + UserRepository.getInstance().getUserById(CacheMemory.getInstance().getCurrentUserId()).getUserName()+"!");
+            MainMenuView mainMenuView = new MainMenuView();
+            mainMenuView.init();
             System.exit(1);
         }
     }

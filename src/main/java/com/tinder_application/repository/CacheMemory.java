@@ -22,4 +22,8 @@ public class CacheMemory {
     public void setCurrentUserId(int currentUserId) {
         this.currentUserId = currentUserId;
     }
+
+    public void handleExit() {
+        System.out.println("Exiting...");
+    }
 }
