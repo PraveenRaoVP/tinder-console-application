@@ -11,6 +11,9 @@ public class Credentials {
         this.password = password;
     }
 
+    public Credentials() {
+    }
+
     public int getCredId() {
         return credId;
     }

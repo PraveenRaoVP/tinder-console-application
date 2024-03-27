@@ -3,6 +3,7 @@ package com.tinder_application.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tinder_application.models.User;
+import com.tinder_application.models.enums.Genders;
 
 import java.io.File;
 import java.util.HashMap;
@@ -44,5 +45,16 @@ public class UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public User addUser(String userName, String emailId, String dob, String bio, String height, String languages, String location, Genders gender) {
+        int userId = usersMap.size() + 1;
+        User user = new User(userId, userName, emailId, dob, bio, height, languages, location, gender, 0);
+        usersMap.put(userId, user);
+        return user;
+    }
+
+    public User getUserById(int currentUserId) {
+        return usersMap.get(currentUserId);
     }
 }

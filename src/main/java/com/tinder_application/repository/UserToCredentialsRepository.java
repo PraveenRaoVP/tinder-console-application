@@ -10,7 +10,7 @@ import java.util.Map;
 public class UserToCredentialsRepository {
     private static UserToCredentialsRepository instance;
 
-    private UserToCredentialsRepository() {userIdToCredIdMap.put(1,1);}
+    private UserToCredentialsRepository() {}
 
     public static UserToCredentialsRepository getInstance() {
         if (instance == null) {
@@ -51,5 +51,9 @@ public class UserToCredentialsRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addUserToCredentials(int userId, int credId) {
+        userIdToCredIdMap.put(userId, credId);
     }
 }

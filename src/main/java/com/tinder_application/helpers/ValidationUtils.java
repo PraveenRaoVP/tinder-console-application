@@ -19,4 +19,12 @@ public class ValidationUtils {
     public boolean returnIsValidPassword(String password) {
         return password.length() >= 8;
     }
+
+    public boolean isValidMinAge(int age) {
+        return age >= 18;
+    }
+
+    public boolean isValidMaxAge(int maxAge) {
+        return maxAge > 100;
+    }
 }

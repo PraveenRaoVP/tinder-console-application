@@ -4,6 +4,7 @@ import com.tinder_application.models.Credentials;
 import com.tinder_application.helpers.PrintersAndFormatters;
 import com.tinder_application.repository.CacheMemory;
 import com.tinder_application.repository.CredentialsRepository;
+import com.tinder_application.repository.UserRepository;
 import com.tinder_application.repository.UserToCredentialsRepository;
 
 class LoginModel {
@@ -14,6 +15,9 @@ class LoginModel {
     }
 
     public void handleLogin() {
+        CredentialsRepository.getInstance().pullDataFromJSON();
+        UserToCredentialsRepository.getInstance().pullDataFromJSON();
+        UserRepository.getInstance().pullDataFromJSON();
         int attempts = 1;
         do {
             loginView.loginScreen();

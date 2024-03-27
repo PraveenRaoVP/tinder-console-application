@@ -44,4 +44,8 @@ public class UserToPreferencesRepository {
             e.printStackTrace();
         }
     }
+
+    public void addUserToPreferences(int userId, int preferencesId) {
+        userIdToPrefIdMap.put(userId, preferencesId);
+    }
 }

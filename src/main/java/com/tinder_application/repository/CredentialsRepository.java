@@ -13,7 +13,7 @@ public class CredentialsRepository {
     private static CredentialsRepository instance;
 
     private CredentialsRepository() {
-        credentialsMap.put(1,new Credentials(1, "user1@gmail.com", "user1"));
+
     }
 
     public static CredentialsRepository getInstance() {
@@ -69,5 +69,9 @@ public class CredentialsRepository {
 
     public int getCredentialsCount() {
         return credentialsMap.size();
+    }
+
+    public Credentials getCredentialsById(int credId) {
+        return credentialsMap.get(credId);
     }
 }

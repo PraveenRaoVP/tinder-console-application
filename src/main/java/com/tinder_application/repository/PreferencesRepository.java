@@ -3,10 +3,11 @@ package com.tinder_application.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tinder_application.models.Preferences;
+import com.tinder_application.models.enums.Genders;
 
 import java.io.File;
-import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PreferencesRepository {
@@ -44,5 +45,13 @@ public class PreferencesRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Preferences addPreferences(int userId, int minAge, int maxAge, int distance, String hobbies, List<Genders> gendersList) {
+        int preferencesId = preferencesMap.size() + 1;
+        Preferences preferences = new Preferences(preferencesId, minAge, maxAge, distance, hobbies, gendersList);
+        preferencesMap.put(preferencesId, preferences);
+        UserToPreferencesRepository.getInstance().addUserToPreferences(userId, preferencesId);
+        return preferences;
     }
 }
