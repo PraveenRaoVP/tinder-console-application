@@ -1,7 +1,11 @@
 package com.tinder_application.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tinder_application.models.Credentials;
 
+import java.io.File;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,4 +44,30 @@ public class CredentialsRepository {
         return credentials != null;
     }
 
+    private String fileNamePath = "./src/main/resources/credentials.json";
+
+    // json functionality
+    public void pushDataToJSON() {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(fileNamePath);
+        try {
+            mapper.writeValue(file, credentialsMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pullDataFromJSON() {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(fileNamePath);
+        try {
+            credentialsMap.putAll(mapper.readValue(file, new TypeReference<Map<Integer, Credentials>>() {}));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCredentialsCount() {
+        return credentialsMap.size();
+    }
 }
