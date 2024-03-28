@@ -27,4 +27,9 @@ public class ValidationUtils {
     public boolean isValidMaxAge(int maxAge) {
         return maxAge > 100;
     }
+
+    public boolean isValidDate(String date) {
+        // dd/mm/yyyy
+        return date.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}$");
+    }
 }

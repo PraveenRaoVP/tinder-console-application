@@ -76,8 +76,14 @@ public class RegisterView {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String userName = sc.nextLine();
-        System.out.println("Enter your date of birth: ");
-        String dob = sc.nextLine();
+        String dob;
+        do {
+            System.out.println("Enter your date of birth: ");
+            dob = sc.nextLine();
+            if(!ValidationUtils.getInstance().isValidDate(dob)) {
+                System.out.println("Invalid Date. Please try again.");
+            } else break;
+        } while(true);
         System.out.println("Enter your bio: ");
         String bio = sc.nextLine();
         System.out.println("Enter your height: ");
