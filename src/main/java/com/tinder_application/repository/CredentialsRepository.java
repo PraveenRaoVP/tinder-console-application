@@ -74,4 +74,8 @@ public class CredentialsRepository {
     public Credentials getCredentialsById(int credId) {
         return credentialsMap.get(credId);
     }
+
+    public void updateCredentials(Credentials credentials) {
+        credentialsMap.put(credentials.getCredId(), credentials);
+    }
 }

@@ -57,4 +57,8 @@ public class UserRepository {
     public User getUserById(int currentUserId) {
         return usersMap.get(currentUserId);
     }
+
+    public void updateUser(User currentUser) {
+        usersMap.put(currentUser.getUserId(), currentUser);
+    }
 }

@@ -56,4 +56,8 @@ public class UserToCredentialsRepository {
     public void addUserToCredentials(int userId, int credId) {
         userIdToCredIdMap.put(userId, credId);
     }
+
+    public int getCredIdByUserId(int currentUserId) {
+        return userIdToCredIdMap.get(currentUserId);
+    }
 }

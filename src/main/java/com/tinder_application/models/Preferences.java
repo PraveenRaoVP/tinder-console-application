@@ -21,6 +21,8 @@ public class Preferences {
         this.genders = genders;
     }
 
+    public Preferences() {}
+
     public int getPreferencesId() {
         return preferencesId;
     }

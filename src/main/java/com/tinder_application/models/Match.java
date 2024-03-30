@@ -13,6 +13,8 @@ public class Match {
         this.isMatched = isMatched;
     }
 
+    public Match(){}
+
     public int getMatchId() {
         return matchId;
     }

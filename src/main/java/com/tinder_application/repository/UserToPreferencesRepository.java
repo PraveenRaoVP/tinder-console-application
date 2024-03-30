@@ -38,6 +38,7 @@ public class UserToPreferencesRepository {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(fileNamePath);
         try {
+            userIdToPrefIdMap.clear();
             userIdToPrefIdMap.putAll(mapper.readValue(file, new TypeReference<Map<Integer, Integer>>() {
             }));
         } catch (Exception e) {
@@ -47,5 +48,18 @@ public class UserToPreferencesRepository {
 
     public void addUserToPreferences(int userId, int preferencesId) {
         userIdToPrefIdMap.put(userId, preferencesId);
+    }
+
+    public int getPreferencesIdByUserId(int userId) {
+        return userIdToPrefIdMap.get(userId);
+    }
+
+    public int getUserIdByPreferencesId(int preferencesId) {
+        for (Map.Entry<Integer, Integer> entry : userIdToPrefIdMap.entrySet()) {
+            if (entry.getValue() == preferencesId) {
+                return entry.getKey();
+            }
+        }
+        return -1;
     }
 }

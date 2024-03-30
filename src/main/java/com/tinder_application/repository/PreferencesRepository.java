@@ -54,4 +54,8 @@ public class PreferencesRepository {
         UserToPreferencesRepository.getInstance().addUserToPreferences(userId, preferencesId);
         return preferences;
     }
+
+    public Preferences getPreferencesById(int preferencesId) {
+        return preferencesMap.get(preferencesId);
+    }
 }
