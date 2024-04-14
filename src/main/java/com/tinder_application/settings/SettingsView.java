@@ -22,10 +22,11 @@ public class SettingsView {
         System.out.println("5. Update Preferences");
         System.out.println("6. Delete Account");
         System.out.println("7. Back");
+        UserOperationsView userOperationsView;
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                UserOperationsView userOperationsView = new UserOperationsView();
+                userOperationsView = new UserOperationsView();
                 userOperationsView.viewProfile();
                 break;
             case 2:

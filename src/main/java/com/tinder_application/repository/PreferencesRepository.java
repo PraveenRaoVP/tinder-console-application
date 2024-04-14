@@ -24,6 +24,15 @@ public class PreferencesRepository {
 
     private Map<Integer, Preferences> preferencesMap = new HashMap<>();
 
+    // constants
+    public static final int AGE_WEIGHT = 10;
+    public static final int AGE_DIFFERENCE_WEIGHT = 5;
+    public static final int MAX_AGE_DIFFERENCE = 100;
+    public static final int DISTANCE_WEIGHT = 7;
+    public static final int MAX_DISTANCE_DIFFERENCE = 50;
+    public static final int HOBBIES_SCORE = 20;
+    public static final int GENDER_SCORE = 15;
+
     //json functions
     private String fileNamePath = "./src/main/resources/preferences.json";
 

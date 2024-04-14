@@ -37,22 +37,6 @@ public class UserOperationsModel {
         PrintersAndFormatters.showMessage("Name updated successfully.");
     }
 
-    public boolean checkPassword(String oldPassword) {
-        int credId = UserToCredentialsRepository.getInstance().getCredIdByUserId(CacheMemory.getInstance().getCurrentUserId());
-        Credentials credentials = CredentialsRepository.getInstance().getCredentialsById(credId);
-        return credentials.getPassword().equals(oldPassword);
-    }
-
-    public void changePassword(String newPassword) {
-        int credId = UserToCredentialsRepository.getInstance().getCredIdByUserId(CacheMemory.getInstance().getCurrentUserId());
-        Credentials credentials = CredentialsRepository.getInstance().getCredentialsById(credId);
-        credentials.setPassword(newPassword);
-        CredentialsRepository.getInstance().updateCredentials(credentials);
-        PrintersAndFormatters.showMessage("Updating password...");
-        CredentialsRepository.getInstance().pushDataToJSON();
-        PrintersAndFormatters.showMessage("Password updated successfully.");
-    }
-
     public void updateBio(String newBio) {
         User currentUser = getUser();
         currentUser.setBio(newBio);

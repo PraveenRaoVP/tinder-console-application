@@ -27,8 +27,6 @@ public class User {
         this.eloRating = eloRating;
     }
 
-
-
     public Genders getGender() {
         return gender;
     }

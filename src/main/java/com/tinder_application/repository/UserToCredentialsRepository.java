@@ -31,7 +31,7 @@ public class UserToCredentialsRepository {
     }
 
     //json functions
-    private String fileNamePath = "./src/main/resources/userToCredentials.json";
+    private final String fileNamePath = "./src/main/resources/userToCredentials.json";
 
     public void pushDataToJSON() {
          ObjectMapper mapper = new ObjectMapper();

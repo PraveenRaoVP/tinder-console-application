@@ -1,4 +1,4 @@
-package com.tinder_application.operations.preferences_operations;
+package com.tinder_application.matching;
 
 import com.tinder_application.models.Preferences;
 import com.tinder_application.models.User;
@@ -11,14 +11,15 @@ import com.tinder_application.repository.UserToPreferencesRepository;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 
-public class PrefOperationsModel {
-    private PrefOperationsView prefOperationsView;
 
-    public PrefOperationsModel(PrefOperationsView prefOperationsView) {
-        this.prefOperationsView = prefOperationsView;
+
+public class MatchingView {
+    private MatchingModel matchingModel;
+
+    public MatchingView() {
+        matchingModel = new MatchingModel(this);
     }
-
-
 }

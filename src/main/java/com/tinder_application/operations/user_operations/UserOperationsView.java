@@ -3,6 +3,7 @@ package com.tinder_application.operations.user_operations;
 import com.tinder_application.models.Preferences;
 import com.tinder_application.models.User;
 import com.tinder_application.models.enums.Genders;
+import com.tinder_application.operations.credentials_operations.CredOperationsView;
 
 import java.util.Scanner;
 
@@ -45,22 +46,8 @@ public class UserOperationsView {
     }
 
     public void changePassword() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your old password: ");
-        String oldPassword = sc.nextLine();
-        if(!userOperationsModel.checkPassword(oldPassword)) {
-            System.out.println("Incorrect Password");
-            return;
-        }
-        System.out.println("Enter new password: ");
-        String newPassword = sc.nextLine();
-        System.out.println("Re-enter new password: ");
-        String reEnteredPassword = sc.nextLine();
-        if(!newPassword.equals(reEnteredPassword)) {
-            System.out.println("Passwords do not match");
-            return;
-        }
-        userOperationsModel.changePassword(newPassword);
+        CredOperationsView credOperationsView = new CredOperationsView();
+        credOperationsView.changePassword();
     }
 
     public void updateBio() {
