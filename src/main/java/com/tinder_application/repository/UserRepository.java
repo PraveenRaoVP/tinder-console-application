@@ -6,9 +6,7 @@ import com.tinder_application.models.User;
 import com.tinder_application.models.enums.Genders;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserRepository {
     private static UserRepository instance;
@@ -64,6 +62,6 @@ public class UserRepository {
     }
 
     public List<User> getAllUsers() {
-        return (List<User>) usersMap.values();
+        return new ArrayList<>(usersMap.values());
     }
 }

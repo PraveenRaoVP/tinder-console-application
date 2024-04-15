@@ -1,6 +1,7 @@
 package com.tinder_application.MainMenu;
 
 import com.tinder_application.auth.authmenu.AuthMenu;
+import com.tinder_application.matching.MatchingView;
 import com.tinder_application.repository.CacheMemory;
 import com.tinder_application.repository.UserRepository;
 import com.tinder_application.settings.SettingsView;
@@ -24,7 +25,9 @@ public class MainMenuView {
             switch(choice) {
                 case 1:
                     // TODO: Implement show people
-                    System.out.println("Show people not implemented yet.");
+//                    System.out.println("Show people not implemented yet.");
+                        MatchingView matchingView = new MatchingView();
+                        matchingView.displayMatches();
                     break;
                 case 2:
                     // TODO: Implement show matches
@@ -50,7 +53,7 @@ public class MainMenuView {
                     CacheMemory.getInstance().handleExit(); // to be implemented
                     System.exit(0);
             }
-        } while(choice!=6);
+        } while(true);
     }
 
     public void showMainMenu() {

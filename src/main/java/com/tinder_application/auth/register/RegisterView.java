@@ -37,7 +37,7 @@ public class RegisterView {
         do {
             System.out.println("Enter the maximum age preference: ");
             maxAge = sc.nextInt();
-            if(!ValidationUtils.getInstance().isValidMaxAge(maxAge)) {
+            if(ValidationUtils.getInstance().isValidMaxAge(maxAge)) {
                 System.out.println("Yaaru saami nee.");
             } else break;
         } while(true);

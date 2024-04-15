@@ -1,5 +1,9 @@
 package com.tinder_application.repository;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class CacheMemory {
     private static CacheMemory instance;
 
@@ -34,5 +38,20 @@ public class CacheMemory {
         UserRepository.getInstance().pushDataToJSON();
         UserToCredentialsRepository.getInstance().pushDataToJSON();
         UserToPreferencesRepository.getInstance().pushDataToJSON();
+    }
+
+    public int calculateAge(String dateOfBirthString) {
+        // Parse the date of birth string into a LocalDate object
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
+
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the period between the date of birth and the current date
+        Period period = Period.between(dateOfBirth, currentDate);
+
+        // Return the age
+        return period.getYears();
     }
 }

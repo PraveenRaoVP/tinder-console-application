@@ -1,12 +1,11 @@
 package com.tinder_application.matching;
 
+import com.tinder_application.helpers.PrintersAndFormatters;
+import com.tinder_application.models.Match;
 import com.tinder_application.models.Preferences;
 import com.tinder_application.models.User;
 import com.tinder_application.models.enums.Genders;
-import com.tinder_application.repository.CacheMemory;
-import com.tinder_application.repository.PreferencesRepository;
-import com.tinder_application.repository.UserRepository;
-import com.tinder_application.repository.UserToPreferencesRepository;
+import com.tinder_application.repository.*;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -38,14 +37,14 @@ class SimilarityComparator implements Comparator<User> {
 
         // Age range: Calculate the absolute difference between the current user's age and the potential match's age preference,
         // as well as the absolute difference between the current user's age and the potential match's actual age
-        int currentUserAge = calculateAge(currentUser.getDateOfBirth());
+        int currentUserAge = CacheMemory.getInstance().calculateAge(currentUser.getDateOfBirth());
         int targetMinAge = targetPreferences.getMinAge();
         int targetMaxAge = targetPreferences.getMaxAge();
         int ageScore = 0;
         if (currentUserAge >= targetMinAge && currentUserAge <= targetMaxAge) {
             ageScore += PreferencesRepository.AGE_WEIGHT; // Give a score if the current user's age falls within the target age range preference
         }
-        int targetAge = calculateAge(targetUser.getDateOfBirth());
+        int targetAge = CacheMemory.getInstance().calculateAge(targetUser.getDateOfBirth());
         int ageDifference = Math.abs(currentUserAge - targetAge);
         ageScore += (PreferencesRepository.MAX_AGE_DIFFERENCE - ageDifference) * PreferencesRepository.AGE_DIFFERENCE_WEIGHT;
 
@@ -84,23 +83,7 @@ class SimilarityComparator implements Comparator<User> {
 
         return similarityScore;
     }
-
     // Helper method to calculate age from date of birth
-    private int calculateAge(String dateOfBirthString) {
-        // Parse the date of birth string into a LocalDate object
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
-
-        // Get the current date
-        LocalDate currentDate = LocalDate.now();
-
-        // Calculate the period between the date of birth and the current date
-        Period period = Period.between(dateOfBirth, currentDate);
-
-        // Return the age
-        return period.getYears();
-    }
-
 }
 
 public class MatchingModel {
@@ -111,19 +94,39 @@ public class MatchingModel {
     }
 
     public List<User> getPotentialMatches() {
+        MatchRepository.getInstance().pullDataFromJSON();
+        UserRepository.getInstance().pullDataFromJSON();
+        UserToPreferencesRepository.getInstance().pullDataFromJSON();
         List<User> allUsers = UserRepository.getInstance().getAllUsers();
         allUsers.removeIf(user -> user.getUserId() == CacheMemory.getInstance().getCurrentUserId()); // Remove the current user from the list of potential matches
+        allUsers.removeIf(user -> MatchRepository.getInstance().checkIfMatchRecordExistsAndMatchDidntHappen(CacheMemory.getInstance().getCurrentUserId(), user.getUserId())==Integer.MIN_VALUE); // Remove users that are already matched
+        allUsers.removeIf(user -> MatchRepository.getInstance().checkIfMatched(CacheMemory.getInstance().getCurrentUserId(), user.getUserId())); // Remove users that have been swiped left
         allUsers.sort(new SimilarityComparator()); // Sort the list of potential matches based on similarity score
         // after implementing matches, remove users that are already matched and users that have been swiped left
+        if(allUsers.isEmpty()) {
+            System.out.println("No more potential matches available!");
+        }
         return allUsers;
     }
 
     public void swipeRight(int userId) {
         // Add the user to the list of matches
-//        CacheMemory.getInstance().addMatch(userId);
+        MatchRepository.getInstance().pullDataFromJSON();
+        int matchId = MatchRepository.getInstance().checkIfMatchRecordExistsAndMatchDidntHappen(CacheMemory.getInstance().getCurrentUserId(), userId);
+        if(matchId == -1) {
+            MatchRepository.getInstance().addMatch(CacheMemory.getInstance().getCurrentUserId(), userId);
+            PrintersAndFormatters.getInstance().showMessage("You have liked this user! If they like you back, it will be a match!");
+        } else if(matchId != Integer.MIN_VALUE) {
+            MatchRepository.getInstance().updateMatch(matchId);
+            matchingView.matchMessage(userId);
+        } else {
+            System.out.println("These users have already matched!");
+        }
+        MatchRepository.getInstance().pushDataToJSON();
     }
 
     public void swipeLeft(int userId) {
         // Add the user to the list of swiped left users
+        System.out.println("Swiped left on user with ID: " + userId);
     }
 }
