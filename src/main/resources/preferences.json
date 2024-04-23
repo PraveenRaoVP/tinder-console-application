@@ -1,1 +1,1 @@
-{"1":{"preferencesId":1,"minAge":20,"maxAge":35,"distance":2,"hobbies":"Songs, Stealing Verses","genders":["MALE","FEMALE"]},"2":{"preferencesId":2,"minAge":18,"maxAge":22,"distance":1,"hobbies":"Singing, Gaming","genders":["MALE"]}}
+{"1":{"preferencesId":1,"minAge":20,"maxAge":30,"distance":20,"hobbies":"Singing, Dancing, Gaming","genders":["FEMALE"]},"2":{"preferencesId":2,"minAge":20,"maxAge":30,"distance":1,"hobbies":"Singing","genders":["FEMALE"]},"3":{"preferencesId":3,"minAge":18,"maxAge":24,"distance":1,"hobbies":"Singing, Dancing","genders":["MALE"]}}

@@ -97,10 +97,16 @@ public class MatchingModel {
         MatchRepository.getInstance().pullDataFromJSON();
         UserRepository.getInstance().pullDataFromJSON();
         UserToPreferencesRepository.getInstance().pullDataFromJSON();
+        PreferencesRepository.getInstance().pullDataFromJSON();
         List<User> allUsers = UserRepository.getInstance().getAllUsers();
         allUsers.removeIf(user -> user.getUserId() == CacheMemory.getInstance().getCurrentUserId()); // Remove the current user from the list of potential matches
         allUsers.removeIf(user -> MatchRepository.getInstance().checkIfMatchRecordExistsAndMatchDidntHappen(CacheMemory.getInstance().getCurrentUserId(), user.getUserId())==Integer.MIN_VALUE); // Remove users that are already matched
         allUsers.removeIf(user -> MatchRepository.getInstance().checkIfMatched(CacheMemory.getInstance().getCurrentUserId(), user.getUserId())); // Remove users that have been swiped left
+        // remove users with gender out of their preferences
+        User currentUser = UserRepository.getInstance().getUserById(CacheMemory.getInstance().getCurrentUserId());
+        List<Genders> currentUserGenderPreferences = PreferencesRepository.getInstance().getPreferencesById(UserToPreferencesRepository.getInstance().getPreferencesIdByUserId(currentUser.getUserId())).getGenders();
+        allUsers.removeIf(user -> !currentUserGenderPreferences.contains(user.getGender()));
+
         allUsers.sort(new SimilarityComparator()); // Sort the list of potential matches based on similarity score
         // after implementing matches, remove users that are already matched and users that have been swiped left
         if(allUsers.isEmpty()) {
@@ -118,6 +124,10 @@ public class MatchingModel {
             PrintersAndFormatters.getInstance().showMessage("You have liked this user! If they like you back, it will be a match!");
         } else if(matchId != Integer.MIN_VALUE) {
             MatchRepository.getInstance().updateMatch(matchId);
+            User currentUser = UserRepository.getInstance().getUserById(CacheMemory.getInstance().getCurrentUserId());
+            currentUser.setEloRating(currentUser.getEloRating() + 10);
+            User targetUser = UserRepository.getInstance().getUserById(userId);
+            targetUser.setEloRating(targetUser.getEloRating() + 10);
             matchingView.matchMessage(userId);
         } else {
             System.out.println("These users have already matched!");
