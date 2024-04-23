@@ -1,6 +1,7 @@
 package com.tinder_application.MainMenu;
 
 import com.tinder_application.auth.authmenu.AuthMenu;
+import com.tinder_application.matches.MatchesView;
 import com.tinder_application.matching.MatchingView;
 import com.tinder_application.repository.CacheMemory;
 import com.tinder_application.repository.UserRepository;
@@ -31,7 +32,8 @@ public class MainMenuView {
                     break;
                 case 2:
                     // TODO: Implement show matches
-                    System.out.println("Show matches not implemented yet.");
+                    MatchesView matchesView = new MatchesView();
+                    matchesView.showMatches();
                     break;
                 case 3:
                     // TODO: Implement messages

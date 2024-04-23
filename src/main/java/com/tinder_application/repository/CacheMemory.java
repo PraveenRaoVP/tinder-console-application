@@ -1,8 +1,12 @@
 package com.tinder_application.repository;
 
+import com.tinder_application.models.Match;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 public class CacheMemory {
     private static CacheMemory instance;
@@ -54,4 +58,6 @@ public class CacheMemory {
         // Return the age
         return period.getYears();
     }
+
+
 }

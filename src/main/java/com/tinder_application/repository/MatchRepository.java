@@ -6,6 +6,7 @@ import com.tinder_application.models.Match;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MatchRepository {
@@ -92,6 +93,10 @@ public class MatchRepository {
 
     public boolean checkIfDisliked(int userId1,int userId2) {
         return false;
+    }
+
+    public List<Match> getMatches() {
+        return List.copyOf(matchesMap.values());
     }
 
 
